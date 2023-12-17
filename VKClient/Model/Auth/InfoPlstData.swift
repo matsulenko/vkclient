@@ -11,8 +11,4 @@ enum InfoPlist {
     static var clientId: String? {
         Bundle.main.infoDictionary?["CLIENT_ID"] as? String
     }
-
-    static var clientSecret: String? {
-        Bundle.main.infoDictionary?["CLIENT_SECRET"] as? String
-    }
 }

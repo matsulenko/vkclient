@@ -35,7 +35,7 @@ struct ProfilePhotosView: View {
                 ForEach(photos.prefix(limit).indices, id: \.self) { index in
                     Color.clear
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 90, height: 90)
+                        .frame(width: 130, height: 87)
                         .overlay(
                             photos[index].image
                                 .resizable()

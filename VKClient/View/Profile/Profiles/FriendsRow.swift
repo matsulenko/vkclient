@@ -10,10 +10,11 @@ import SDWebImageSwiftUI
 
 struct FriendsRow: View {
     
-    @State var friend: Friend = Friend(photo: "", firstName: "Name", lastName: "Surname")
-    var name: String
-    var surname: String
+    var firstName: String?
+    var lastName: String?
+    var name: String?
     var img: String
+    var city: City?
     
     var body: some View {
         HStack {
@@ -26,7 +27,7 @@ struct FriendsRow: View {
                 .padding(.trailing, 8)
             VStack {
                 HStack {
-                    Text(name + " " + surname)
+                    Text(name != nil ? name! : (firstName ?? "") + " " + (lastName ?? "") + (city?.title ?? ""))
                         .foregroundStyle(Color.text)
                         .font(.headline)
                     Spacer()
@@ -39,5 +40,5 @@ struct FriendsRow: View {
 }
 
 #Preview {
-    FriendsRow(name: "1", surname: "1", img: "")
+    FriendsRow(firstName: "1", lastName: "1", img: "", city: City(title: "Moscow"))
 }

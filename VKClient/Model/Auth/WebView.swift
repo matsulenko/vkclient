@@ -29,7 +29,7 @@ struct WebView: UIViewRepresentable {
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "response_type", value: "token"),
-            URLQueryItem(name: "scheme", value: "space_gray")
+            URLQueryItem(name: "scope", value: "offline")
         ]
         
         let request = URLRequest(url: urlComponents.url ?? URL(string: "https://matsulenko.ru")!)
@@ -84,6 +84,9 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate {
         if let accessToken = params["access_token"] {
             token(accessToken)
             keychain.set(accessToken, forKey: "accessToken")
+            if let expiresIn = params["expires_in"] {
+                print("expiresIn", expiresIn)
+            }
         }
                 
         decisionHandler(.cancel)

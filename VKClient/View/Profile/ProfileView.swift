@@ -14,7 +14,7 @@ struct ProfileView: View {
     @State var photos: [Photo] = Mocks.shared.photos
     @State var videos: [Video] = Mocks.shared.videos
     @State var isMyProfile = true
-    @State private var barHidden = true
+    @State private var barHidden = false
     
     var body: some View {
         
@@ -50,7 +50,7 @@ struct ProfileView: View {
                         VStack {
                             Text(String(posts.count))
                                 .fontWeight(.semibold)
-                            Text("posts")
+                            Text("friends")
                                 .font(.footnote)
                         }
                         Spacer()
@@ -72,11 +72,11 @@ struct ProfileView: View {
                     .padding(16)
                     
                     VStack {
-                        HStack {
-                            Text(name)
-                                .font(.headline)
-                            Spacer()
-                        }
+//                        HStack {
+//                            Text(name)
+//                                .font(.headline)
+//                            Spacer()
+//                        }
                         HStack {
                             Text(profile.country + ", " + profile.city)
                                 .font(.subheadline)
@@ -132,23 +132,11 @@ struct ProfileView: View {
                     .padding(.horizontal, 16)
                     
                     PostView(posts: Mocks.shared.posts)
-                }.background(GeometryReader {
-                    Color.clear.preference(key: ViewOffsetKey.self,
-                        value: -$0.frame(in: .named("scroll")).origin.y)
-                })
-                .onPreferenceChange(ViewOffsetKey.self) {
-                    if !barHidden && $0 < 50 {
-                        barHidden = true
-                        print("<< hiding")
-                    } else if barHidden && $0 > 50{
-                        barHidden = false
-                        print(">> showing")
-                    }
                 }
             }
             .coordinateSpace(name: "scroll")
             .navigationBarTitle(name, displayMode: .inline)
-            .navigationBarHidden(barHidden)
+            .navigationBarHidden(false)
         }
         .animation(.default, value: barHidden)
     }

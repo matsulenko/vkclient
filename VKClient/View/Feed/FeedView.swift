@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
+import KeychainSwift
 
 struct FeedView: View {
-    
     @State var feed: Feed
     
     var body: some View {
@@ -21,6 +21,7 @@ struct FeedView: View {
                             
                             let image: Image = {
                                 if profile.avatar != nil {
+                                    
                                     return profile.avatar!
                                 } else {
                                     return Image("VKClient")
