@@ -9,38 +9,39 @@ import SwiftUI
 
 struct MainTabView: View {
     
-    var token: String
-    @AppStorage("isSafe") var isSafe = true
-    @AppStorage("isSavingLikes") var isSavingLikes = true
-    @AppStorage("notificationsAreEnabled") var notificationsAreEnabled = false
-    @AppStorage("isHidden") var isHidden = false
+    @Binding var token: String?
+    @AppStorage("isHidden") var isHidden = true
+    @Binding var colorScheme: String
     
     var body: some View {
         TabView {
-            FeedView(feed: Mocks.shared.feed)
-                .tabItem {
-                    Label("Feed", systemImage: "house.fill")
-                }
-            VideoPlaylistView(videos: Mocks.shared.videos)
-                .tabItem {
-                    Label("Video", systemImage: "film.fill")
-                }
-//            MessengerView(profiles: Mocks.shared.feed.profiles)
-//                .tabItem {
-//                    Label("Messages", systemImage: "message.fill")
-//                }
-            ProfileView(profile: Mocks.shared.profile)
-                .tabItem {
-                    Label("My profile", systemImage: "person.crop.circle.fill")
-                }
-            SettingsView(isSafe: $isSafe, isSavingLikes: $isSavingLikes, notificationsAreEnabled: $notificationsAreEnabled, isHidden: $isHidden)
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
-                }
+            if token != nil {
+                FeedView(token: token!)
+                    .tabItem {
+                        Label("Feed", systemImage: "house.fill")
+                    }
+                SearchView(token: token!)
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
+                ProfileView(token: token!)
+                    .tabItem {
+                        Label("My profile", systemImage: "person.crop.circle.fill")
+                    }
+                SavedPostsView(token: token!)
+                    .tabItem {
+                        Label("Saved posts", systemImage: "bookmark.fill")
+                    }
+                SettingsView(token: $token, isHidden: $isHidden, colorScheme: $colorScheme)
+                    .tabItem {
+                        Label("Settings", systemImage: "gearshape.fill")
+                    }
+            }
         }
+        .frame(maxWidth: 900)
     }
 }
 
 #Preview {
-    MainTabView(token: "")
+    MainTabView(token: .constant(InfoPlist.tokenForPreviews), colorScheme: .constant("System"))
 }

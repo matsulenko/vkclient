@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct FriendsRow: View {
     
@@ -17,9 +16,16 @@ struct FriendsRow: View {
     var city: City?
     
     var body: some View {
+        let nameText: String = {
+            if name != nil {
+                return name!
+            } else {
+                return (firstName ?? "") + " " + (lastName ?? "")
+            }
+        }()
+        
         HStack {
-            WebImage(url: URL(string: img))
-                .resizable()
+            AsyncImage(url: URL(string: img))
                 .scaledToFill()
                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 .frame(width: 40, height: 40)
@@ -27,10 +33,19 @@ struct FriendsRow: View {
                 .padding(.trailing, 8)
             VStack {
                 HStack {
-                    Text(name != nil ? name! : (firstName ?? "") + " " + (lastName ?? "") + (city?.title ?? ""))
+                    Text(nameText)
+                        .lineLimit(1)
                         .foregroundStyle(Color.text)
                         .font(.headline)
                     Spacer()
+                }
+                if city != nil {
+                    HStack {
+                        Text(city!.title)
+                            .lineLimit(1)
+                            .foregroundStyle(.gray)
+                        Spacer()
+                    }
                 }
             }
             Spacer()
@@ -40,5 +55,5 @@ struct FriendsRow: View {
 }
 
 #Preview {
-    FriendsRow(firstName: "1", lastName: "1", img: "", city: City(title: "Moscow"))
+    FriendsRow(firstName: "1", lastName: "1", img: "")
 }

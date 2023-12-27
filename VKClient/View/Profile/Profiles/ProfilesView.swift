@@ -9,52 +9,142 @@ import SwiftUI
 
 struct ProfilesView: View {
     
-    @State var token: String
-    @State var userId: Int?
+    let limit = 25
+    @State var hasError = false
+    var token: String
+    var userId: Int?
+    var nameOfUser: String?
     @State var friends: [Friend] = []
     @State var subscriptions: [SubscriptionGroup] = []
-    @State var typeOfProfiles: ListOfProfilesType
+    var typeOfProfiles: ListOfProfilesType
+    @State var profilesLoaded: Int = 0
+    var profilesTotalCount: Int?
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                switch typeOfProfiles {
-                case .subscriptions:
-                    List(subscriptions, id: \.self) { subscription in
-                        NavigationLink {
-                            ProfileView(profile: Mocks.shared.profile)
-                        } label: {
-                            FriendsRow(name: subscription.name, img: subscription.photo)
+        let navBarTitle: String = setTitle()
+        
+        if hasError {
+            Text("Something went wrong")
+        } else {
+            NavigationStack {
+                VStack {
+                    switch typeOfProfiles {
+                    case .subscriptions:
+                        List(subscriptions, id: \.self) { subscription in
+                            NavigationLink {
+                                if subscription.type == .profile {
+                                    ProfileView(token: token, userId: subscription.id)
+                                } else {
+                                    let groupId = subscription.id * (-1)
+                                    ProfileView(token: token, userId: groupId)
+                                }
+                            } label: {
+                                FriendsRow(name: subscription.name, img: subscription.photo)
+                            }
+                        }
+                    default:
+                        List(friends, id: \.self) { friend in
+                            NavigationLink {
+                                ProfileView(token: token, userId: friend.id)
+                            } label: {
+                                FriendsRow(firstName: friend.firstName, lastName: friend.lastName, img: friend.photo, city: friend.city)
+                            }
                         }
                     }
-                default:
-                    List(friends, id: \.self) { friend in
-                        NavigationLink {
-                            ProfileView(profile: Mocks.shared.profile)
-                        } label: {
-                            FriendsRow(firstName: friend.firstName, lastName: friend.lastName, img: friend.photo, city: friend.city)
-                        }
+                    if profilesLoaded < profilesTotalCount ?? 0 {
+                        Button(
+                            action: {
+                                loadMore()
+                            }, label: {
+                                Text("Load more")
+                            })
+                        .buttonStyle(DefaultButton())
+                        .padding(.horizontal, 26)
                     }
+                }
+                .listStyle(.inset)
+                .navigationBarTitle(navBarTitle, displayMode: .inline)
+            }
+            .onAppear {
+                if profilesLoaded == 0 {
+                    loadProfiles()
                 }
             }
-            .listStyle(.inset)
-            .navigationBarTitle(typeOfProfiles.rawValue, displayMode: .inline)
         }
-        .onAppear {
+    }
+    
+    private func setTitle() -> String {
+        let titlePrefix: String = {
+            if nameOfUser == nil {
+                ""
+            } else {
+                nameOfUser! + ". "
+            }
+        }()
+        
+        let titleSuffix: String = {
             switch typeOfProfiles {
+            case .friends:
+                String(localized: "Friends")
+            case .followers:
+                String(localized: "Followers")
             case .subscriptions:
-                GetData.shared.getSubscriptions(token: token, userId: userId) { result in
-                    switch result {
-                    case .success(let subscriptions): self.subscriptions = subscriptions
-                    case .failure(let error): print("Something went wrong: \(error.localizedDescription)")
-                    }
+                String(localized: "Subscriptions")
+            }
+        }()
+        
+        return titlePrefix + titleSuffix
+    }
+    
+    private func loadProfiles() {
+        switch typeOfProfiles {
+        case .subscriptions:
+            Responses.shared.getSubscriptions(token: token, userId: userId, count: limit, offset: nil) { result in
+                switch result {
+                case .success(let subscriptions): 
+                    self.subscriptions = subscriptions
+                    profilesLoaded += limit
+                case .failure(let error):
+                    print("Something went wrong: \(error.localizedDescription)")
+                    hasError = true
                 }
-            default:
-                GetData.shared.getFriends(token: token, type: typeOfProfiles, userId: userId) { result in
-                    switch result {
-                    case .success(let friends): self.friends = friends
-                    case .failure(let error): print("Something went wrong: \(error.localizedDescription)")
-                    }
+            }
+        default:
+            Responses.shared.getFriends(token: token, type: typeOfProfiles, userId: userId, count: limit, offset: nil) { result in
+                switch result {
+                case .success(let friends): 
+                    self.friends = friends
+                    profilesLoaded += limit
+                case .failure(let error):
+                    print("Something went wrong: \(error.localizedDescription)")
+                    hasError = true
+                }
+            }
+        }
+    }
+    
+    private func loadMore() {
+        switch typeOfProfiles {
+        case .subscriptions:
+            Responses.shared.getSubscriptions(token: token, userId: userId, count: limit, offset: profilesLoaded) { result in
+                switch result {
+                case .success(let moreSubscriptions): 
+                    self.subscriptions.append(contentsOf: moreSubscriptions)
+                    profilesLoaded += limit
+                case .failure(let error):
+                    print("Something went wrong: \(error.localizedDescription)")
+                    hasError = true
+                }
+            }
+        default:
+            Responses.shared.getFriends(token: token, type: typeOfProfiles, userId: userId, count: limit, offset: profilesLoaded) { result in
+                switch result {
+                case .success(let moreFriends): 
+                    self.friends.append(contentsOf: moreFriends)
+                    profilesLoaded += limit
+                case .failure(let error):
+                    print("Something went wrong: \(error.localizedDescription)")
+                    hasError = true
                 }
             }
         }
@@ -62,5 +152,5 @@ struct ProfilesView: View {
 }
 
 #Preview {
-    ProfilesView(token: "", typeOfProfiles: .friends)
+    ProfilesView(token: InfoPlist.tokenForPreviews, typeOfProfiles: .friends, profilesTotalCount: 18)
 }

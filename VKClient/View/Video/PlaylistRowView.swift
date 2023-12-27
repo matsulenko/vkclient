@@ -8,43 +8,73 @@
 import SwiftUI
 
 struct PlaylistRowView: View {
-    @State var playlist: VideoPlaylist
+    @State var playlist: VideoAlbum
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                playlist.image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width - 20, height: 250)
-                    .clipped()
-                    .clipShape(.rect(cornerRadius: 15))
-                    .shadow(radius: 10)
-                VStack {
-                    Spacer()
-                    HStack {
-                        Text(String(playlist.videos.count) + " videos")
-                            .foregroundStyle(.white)
-                            .background(Color.black.opacity(0.6))
-                            .font(.subheadline)
-                        Spacer()
-                    }
-                    HStack {
-                        Text(playlist.title)
-                            .foregroundStyle(.white)
-                            .background(Color.black.opacity(0.6))
-                            .font(.title2)
-                        Spacer()
+        
+        GeometryReader { proxy in
+            VStack {
+                if playlist.image == nil {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(
+                            LinearGradient(gradient: Gradient(colors: [Color.accentColor, Color.additionalColor1, Color.additionalColor2]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .frame(width: proxy.size.width, height: 250)
+                        .overlay(
+                            VStack {
+                                Text(String(playlist.count) + " " + "videos")
+                                    .foregroundStyle(.white)
+                                    .font(.subheadline)
+                                
+                                Text(playlist.title)
+                                    .foregroundStyle(.white)
+                                    .font(.title)
+                                    .lineLimit(nil)
+                            }
+                        )
+                        .padding(.bottom, 10)
+                } else {
+                    Color.clear
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: proxy.size.width, height: 250)
+                        .overlay(
+                            AsyncImage(url: URL(string: playlist.image!.last!.url)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        ).clipped()
+                        .overlay(
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Text(String(playlist.count) + " " + "videos")
+                                        .foregroundStyle(.white)
+                                        .background(Color.black.opacity(0.6))
+                                        .font(.subheadline)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text(playlist.title)
+                                        .foregroundStyle(.white)
+                                        .background(Color.black.opacity(0.6))
+                                        .font(.title2)
+                                        .lineLimit(nil)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                }
+                            }
+                                .padding(16)
+                        )
+                        .clipShape(.rect(cornerRadius: 15))
+                        .padding(.bottom, 10)
+                    VStack {
+                        
                     }
                 }
-                .padding()
             }
-            .padding(.horizontal, 10)
         }
-        .frame(height: 250)
     }
-}
-
-#Preview {
-    PlaylistRowView(playlist: Mocks.shared.videoPlaylists[0])
 }

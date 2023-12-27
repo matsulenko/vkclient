@@ -15,10 +15,14 @@ enum VideoTab: String, CaseIterable, Identifiable {
 }
 
 struct VideoPlaylistView: View {
+    var token: String
     @State var selectedTab: VideoTab = .video
     
-    let videos: [Video]
     var playlistName: String?
+    var userId: Int?
+    var albumId: Int?
+    var isSearch = false
+    var query: String?
     
     var body: some View {
         NavigationStack {
@@ -32,8 +36,8 @@ struct VideoPlaylistView: View {
                 }
                 ScrollView {
                     switch selectedTab {
-                    case .video: VideoTabView(videos: videos)
-                    case .playlist: PlaylistTabView(playlists: Mocks.shared.videoPlaylists)
+                    case .video: VideoTabView(token: token, userId: userId, albumId: albumId, isSearch: isSearch, query: query)
+                    case .playlist: PlaylistTabView(token: token, userId: userId)
                     }
                     
                 }
@@ -46,7 +50,7 @@ struct VideoPlaylistView: View {
 }
 
 #Preview {
-    VideoPlaylistView(videos: Mocks.shared.videos)
+    VideoPlaylistView(token: InfoPlist.tokenForPreviews)
 }
 
 //videoPlaylists

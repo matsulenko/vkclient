@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>friends_</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>друг</string>
+			<key>few</key>
+			<string>друга</string>
+			<key>many</key>
+			<string>друзей</string>
+			<key>other</key>
+			<string>друзей</string>
+		</dict>
+	</dict>
+	<key>followers_</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>подписчик</string>
+			<key>few</key>
+			<string>подписчика</string>
+			<key>many</key>
+			<string>подписчиков</string>
+			<key>other</key>
+			<string>подписчиков</string>
+		</dict>
+	</dict>
+	<key>subscriptions_</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>подписка</string>
+			<key>few</key>
+			<string>подписки</string>
+			<key>many</key>
+			<string>подписок</string>
+			<key>other</key>
+			<string>подписок</string>
+		</dict>
+	</dict>
+	<key>views</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d просмотр</string>
+			<key>few</key>
+			<string>%d просмотра</string>
+			<key>many</key>
+			<string>%d просмотров</string>
+			<key>other</key>
+			<string>%d просмотров</string>
+		</dict>
+	</dict>
+	<key>results</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d результат</string>
+			<key>few</key>
+			<string>%d результата</string>
+			<key>many</key>
+			<string>%d результатов</string>
+			<key>other</key>
+			<string>%d результатов</string>
+		</dict>
+	</dict>
+	<key>members_</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>подписчик</string>
+			<key>few</key>
+			<string>подписчика</string>
+			<key>many</key>
+			<string>подписчиков</string>
+			<key>other</key>
+			<string>подписчиков</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

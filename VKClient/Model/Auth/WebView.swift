@@ -29,7 +29,7 @@ struct WebView: UIViewRepresentable {
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "response_type", value: "token"),
-            URLQueryItem(name: "scope", value: "offline")
+            URLQueryItem(name: "scope", value: "friends, offline, photos, status, video, wall")
         ]
         
         let request = URLRequest(url: urlComponents.url ?? URL(string: "https://matsulenko.ru")!)
@@ -50,7 +50,7 @@ struct WebView: UIViewRepresentable {
     
 }
 
-class WebViewCoordinator: NSObject, WKNavigationDelegate {
+final class WebViewCoordinator: NSObject, WKNavigationDelegate {
     let keychain = KeychainSwift()
     
     var token: (String) -> ()
@@ -92,29 +92,3 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate {
         decisionHandler(.cancel)
     }
 }
-
-
-
-//    typealias UIViewType = UIView
-//    func makeUIView(context: Context) -> UIView {
-//
-//        let vkid: VKID = try! VKID(config: .init(appCredentials: .init(clientId: InfoPlist.clientId!, clientSecret: InfoPlist.clientSecret!)))
-//
-//        let oneTap = OneTapButton(
-//            layout: .regular(
-//                height: .medium(.h44),
-//                cornerRadius: 8
-//            ),
-//            presenter: .custom(self),
-//            onCompleteAuth: nil
-//        )
-//        return vkid.ui(for: oneTap).uiView()
-//    }
-//
-//    func updateUIView(_ uiView: UIView, context: Context) {
-//
-//    }
-
-
-//    let url = "https://matsulenko.ru"
-//https://matsulenko.ru/authentication-vk

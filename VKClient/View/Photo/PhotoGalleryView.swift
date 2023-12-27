@@ -15,36 +15,41 @@ enum PhotoTab: String, CaseIterable, Identifiable {
 }
 
 struct PhotoGalleryView: View {
+    var token: String
     @State var selectedTab: PhotoTab = .photo
     
-    let photos: [Photo]
     var albumName: String?
+    var userId: Int?
+    var albumId: Int?
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                if albumName == nil {
-                    Picker(selectedTab.id, selection: $selectedTab) {
-                        Text("Photos").tag(PhotoTab.photo)
-                        Text("Albums").tag(PhotoTab.album)
+        GeometryReader { proxy in
+            NavigationStack {
+                VStack {
+                    if albumName == nil {
+                        Picker(selectedTab.id, selection: $selectedTab) {
+                            Text("Photos").tag(PhotoTab.photo)
+                            Text("Albums").tag(PhotoTab.album)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                }
-                ScrollView {
-                    switch selectedTab {
-                    case .photo: PhotoTabView(photos: photos)
-                    case .album: AlbumTabView(photoGalleries: Mocks.shared.photoGalleries)
+                    ScrollView {
+                        switch selectedTab {
+                        case .photo: PhotoTabView(token: token, userId: userId, albumId: albumId)
+                        case .album: AlbumTabView(token: token, userId: userId)
+                                .padding(.horizontal, 16)
+                        }
+                        
                     }
-                    
                 }
+                .navigationTitle(albumName == nil ? "Photos" : albumName!)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(.visible, for: .navigationBar)
             }
-            .navigationTitle(albumName == nil ? "Photos" : albumName!)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(.visible, for: .navigationBar)
         }
     }
 }
 
 #Preview {
-    PhotoGalleryView(photos: Mocks.shared.photos)
+    PhotoGalleryView(token: InfoPlist.tokenForPreviews)
 }

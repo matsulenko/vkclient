@@ -17,10 +17,12 @@ struct SubscriptionsResponse: Decodable {
 }
 
 struct SubscriptionGroups: Decodable {
+    var count: Int
     var items: [SubscriptionGroup]
 }
 
 struct SubscriptionGroup: Decodable, Hashable {
+    var id: Int
     var photo: String
     var firstName: String?
     var lastName: String?
@@ -28,6 +30,7 @@ struct SubscriptionGroup: Decodable, Hashable {
     var type: SubscriptionType
     
     enum CodingKeys: String, CodingKey {
+        case id = "id"
         case name = "name"
         case firstName = "first_name"
         case lastName = "last_name"
@@ -37,6 +40,7 @@ struct SubscriptionGroup: Decodable, Hashable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
         self.photo = try container.decode(String.self, forKey: .photo)
         self.type = try container.decode(SubscriptionType.self, forKey: .type)
         
@@ -50,43 +54,3 @@ struct SubscriptionGroup: Decodable, Hashable {
         }
     }
 }
-
-
-//struct SubscriptionsResponse: Decodable {
-//    var response: Subscriptions
-//}
-//
-//struct Subscriptions: Decodable {
-//    var users: SubscriptionUsers
-//    var groups: SubscriptionGroups
-//}
-//
-//struct SubscriptionUsers: Decodable {
-//    var items: [SubscriptionUser]
-//}
-//
-//struct SubscriptionGroups: Decodable {
-//    var items: [SubscriptionGroup]
-//}
-//
-//struct SubscriptionUser: Decodable, Hashable {
-//    var photo: String
-//    var firstName: String
-//    var lastName: String
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case firstName = "first_name"
-//        case lastName = "last_name"
-//        case photo = "photo_50"
-//    }
-//}
-//
-//struct SubscriptionGroup: Decodable, Hashable {
-//    var photo: String
-//    var name: String
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case name = "name"
-//        case photo = "photo_50"
-//    }
-//}
