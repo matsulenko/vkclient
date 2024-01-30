@@ -1,0 +1,82 @@
+/* 
+  Localizable.strings
+  VKClient
+
+  Created by Matsulenko on 26.12.2023.
+  
+*/
+
+"Feed" = "Лента";
+"Something went wrong" = "Что-то пошло не так";
+"Search" = "Поиск";
+"My profile" = "Мой профиль";
+"Saved posts" = "Сохранено";
+"Settings" = "Настройки";
+"Your feed" = "Ваша лента";
+"Try to reload data" = "Попробовать ещё раз";
+"Set status" = "Установить статус";
+"This account is deactivated" = "Этот аккаунт деактивирован";
+"Members" = "Подписчики";
+"My groups" = "Мои группы";
+"Posts" = "Публикации";
+"New post" = "Новая публикация";
+"Remove from friends" = "Удалить из друзей";
+"Add to friends" = "Добавить в друзья";
+"Leave the group" = "Покинуть группу";
+"Join the group" = "Присоединиться к группе";
+"Cancel friend request" = "Отменить запрос на дружбу";
+"Load more" = "Загрузить ещё";
+"of" = "пользователя";
+"Friends" = "Друзья";
+"Followers" = "Подписчики";
+"Subscriptions" = "Подписки";
+"Photos" = "Фото";
+"All photos" = "Все фото";
+"Videos" = "Видео";
+"All videos" = "Все видео";
+"Create a new post" = "Создать новую публикацию";
+"Publish" = "Опубликовать";
+"You are not a member of any group" = "Вы не состоите ни в одной группе";
+"Hide my status" = "Скрывать мой статус";
+"Your \"Online\" status is hidden" = "Ваш \"Онлайн\" статус скрыт";
+"Your \"Online\" status is shown" = "Ваш \"Онлайн\" статус отображается";
+"Log out" = "Выйти из аккаунта";
+"This post was deleted" = "Публикация удалена";
+"Delete" = "Удалить";
+"Photos" = "Фото";
+"Albums" = "Альбомы";
+"There are no photos" = "Нет фото";
+"There are no albums" = "Нет альбомов";
+"photos" = "фото";
+"Comments" = "Комментарии";
+"There are no comments" = "Комментариев нет";
+"This comment was deleted" = "Комментарий удалён";
+"Reply" = "Ответить";
+"Playlists" = "Плейлисты";
+"There are no videos" = "Нет видео";
+"There are no playlists" = "Нет плейлистов";
+"Deleted from my videos" = "Удалено из моих видео";
+"Added to my videos" = "Добавлено в мои видео";
+"Delete from my videos" = "Удалить из моих видео";
+"Add to my videos" = "Добавить в мои видео";
+"Open link" = "Открыть ссылку";
+"There are no saved posts" = "Нет сохранённых публикаций";
+"Tap a \"bookmark\" icon under a post to save it" = "Для сохранения публикации нажмите на иконку \"закладка\" под ней";
+"Delete the post from saved" = "Удалить публикацию из сохранённых";
+"Search" = "Поиск";
+"Videos" = "Видео";
+"Friends" = "Друзья";
+"Search videos" = "Поиск видео";
+"Search friends" = "Поиск новых друзей";
+"Search query is empty" = "Поисковый запрос пуст";
+"No results" = "Нет результатов";
+"Appearance" = "Цветовая схема";
+"System" = "Системная";
+"Light" = "Светлая";
+"Dark" = "Тёмная";
+"friends" = "друзья";
+"followers" = "подписчики";
+"subscriptions" = "подписки";
+"views" = "просмотров";
+"videos" = "видео";
+"results" = "результатов";
