@@ -149,7 +149,10 @@ iOS 17.0
 - Zoomable
 
 # Localization
-WeatherApp has English and Russian localizations
+VK Client has English and Russian localizations.
 
 # Developed by
-WeatherApp is developed by Andrey Matsulenko during the Netology Swift course in 2023.
+VK Client is developed by Andrey Matsulenko in 2023.
+
+# Contacts
+LinkedIn: https://linkedin.com/in/matsulenko/
